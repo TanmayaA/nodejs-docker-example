@@ -4,7 +4,7 @@
 pipeline {
     agent any
 
-
+    stages{
        stage('Test'){
 
          env.NODE_ENV = "test"
@@ -40,4 +40,6 @@ pipeline {
          sh 'rm node_modules -rf'
 
 
-       }}
+       }
+    }
+}
