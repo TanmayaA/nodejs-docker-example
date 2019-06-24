@@ -44,7 +44,7 @@ node('node') {
          sh 'rm node_modules -rf'
 
 
-    }
+       }}
     catch (err) {
 
         currentBuild.result = "FAILURE"
