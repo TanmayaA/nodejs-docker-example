@@ -1,9 +1,5 @@
 #!groovy
 
-
-node('node') {
-
-
     currentBuild.result = "SUCCESS"
 
     try {
@@ -51,5 +47,4 @@ node('node') {
         throw err
     }
 
-}
 
