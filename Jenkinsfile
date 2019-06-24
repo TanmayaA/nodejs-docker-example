@@ -1,6 +1,8 @@
 #!groovy
 
     currentBuild.result = "SUCCESS"
+pipeline {
+    agent any
 
     try {
 
@@ -47,4 +49,4 @@
         throw err
     }
 
-
+}
