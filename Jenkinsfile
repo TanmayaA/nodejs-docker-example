@@ -4,8 +4,6 @@
 pipeline {
     agent any
 
-    try {
-
 
        stage('Test'){
 
@@ -43,10 +41,3 @@ pipeline {
 
 
        }}
-    catch (err) {
-
-        currentBuild.result = "FAILURE"
-        throw err
-    }
-
-}
