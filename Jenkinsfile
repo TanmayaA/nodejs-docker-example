@@ -1,45 +1,46 @@
-#!groovy
-
-    currentBuild.result = "SUCCESS"
-pipeline {
-    agent any
-
-    stages{
-       stage('Test'){
-
-         env.NODE_ENV = "test"
-
-         print "Environment will be : ${env.NODE_ENV}"
-
-         sh 'node -v'
-         sh 'npm prune'
-         sh 'npm install'
-         sh 'npm test'
-
-       }
-
-       stage('Build Docker'){
-          echo 'Build Docker'
-          //  sh './dockerBuild.sh'
-       }
-
-       stage('Deploy'){
-
-         echo 'Push to Repo'
-        // sh './dockerPushToRepo.sh'
-
-         echo 'ssh to web server and tell it to pull new image'
-        // sh 'ssh deploy@xxxxx.xxxxx.com running/xxxxxxx/dockerRun.sh'
-
-       }
-
-       stage('Cleanup'){
-
-         echo 'prune and cleanup'
-         sh 'npm prune'
-         sh 'rm node_modules -rf'
+pipeline{
+  agent any
+  stages {
+    stage('Test'){
+      steps {
+        script {
+          try {
 
 
-       }
+            env.NODE_ENV = "test"
+
+            print "Environment will be : ${env.NODE_ENV}"
+
+            sh 'node -v'
+            sh 'npm prune'
+            sh 'npm install'
+            sh 'npm test'
+          }
+          catch (e) {
+            throw e
+          }
+        }
+      }
     }
+
+    stage('Cleanup'){
+      steps {
+        script {
+          try {
+
+
+            echo 'prune and cleanup'
+            sh 'npm prune'
+            sh 'rm node_modules -rf'
+
+
+          }
+          catch (e) {
+            throw e
+          }
+        }
+      }
+
+    }
+  }
 }
